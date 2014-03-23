@@ -3,7 +3,7 @@
 
         <!-- Title -->
         <ul class="title-area">
-          <li class="name"><h1><a href="dashboard.html">Security Manager</a></h1></li>
+          <li class="name"><h1><a href="dashboard.php">Security Manager</a></h1></li>
         </ul>
 
         <!-- Top Bar Section -->
@@ -16,7 +16,7 @@
             <li class="divider"></li>
 
             <!-- Dropdown -->
-            <li class="has-dropdown not-click"><a href="http://zurb.com">Administrator</a>
+            <li class="has-dropdown not-click"><a>Administrator</a>
               <ul class="dropdown">
                 <li class="title back js-generated"><h5><a href="javascript:void(0)">Back</a></h5></li>
                 <li><a href="#">Settings</a></li>

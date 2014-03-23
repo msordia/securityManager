@@ -1,0 +1,36 @@
+METODOS PARA EL API
+-------------------------------
+
+-registerApplication()
+	:Application name
+	:Name of supervisor / person in charge
+	:url
+	-> token of the application
+
+-askForPermission
+	:username : text
+	:mail : text
+	:applicationToken : GUID
+	:duration: formatted text HH:mm / time user is going to spend inside the system.
+	:reason : text /activities he's gonna do
+
+
+
+LISTA DE ERRORES, cada error tiene un id
+-------------------------------
+
+001 - No hay parametros suficientes o la llamada viene de un source desconocido
+002 - El applicationToken no fue reconocido
+
+
+
+EJEMPLO DE COMO LLAMAR A UN METODO DEL API / Desde javascript en la aplicacion
+--------------------------------------------------------
+$.post( "192.98.7.12/api/applications.php", { username: user, password: pass})
+      .done(function( data ) {
+        if(data == "error"){
+          showError();
+        }else{
+          window.location.replace(data);
+        }
+      });
