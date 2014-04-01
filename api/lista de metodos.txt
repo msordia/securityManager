@@ -7,7 +7,7 @@ METODOS PARA EL API
 	:url
 	-> token of the application
 
--askForPermission
+-requestAccess
 	:username : text
 	:mail : text
 	:applicationToken : GUID

@@ -5,14 +5,16 @@ if(Input::exists()) {
 
 	$action = Input::get('action');
 
-	if($action === "registerApplication"){
+	switch ($action) {
 		
+		case "registerApplication":
+
 		$applicationName = Input::get('applicationName');
 		$username = Input::get('username');
 		$ip = "";
 		$url = Input::get('url');
 		$token = Hash::unique();
-		
+
 		$app = new Application();
 		$created = $app->create(array(
 			"name" => $applicationName,
@@ -25,17 +27,49 @@ if(Input::exists()) {
 		$response = array();
 
 		if($created){
-			$response = array(
-				"message" => "success",
-				"applicationToken" => $token
-				);
+			$response = array( "message" => "success", "applicationToken" => $token	);
 		}else{
 			$response = array( "message" => "Error:003"	);
 		}
 
 		echo json_encode($response);
-	}else{
+		break;
+
+		case "requestAccess":
+
+		$applicationToken = Input::get('applicationToken');
+		$username = Input::get('username');
+		$ip = "";
+		$mail = Input::get('mail');
+		$duration = Input::get('duration');
+		$reason = Input::get('reason');
+
+		$request = new Requests();
+		$created = $request->insert(array(
+			"userId" => $username ,
+			"reason" => $reason ,
+			"duration" => $duration ,
+			"date" => 'now()' ,
+			"applicationToken" => $applicationToken
+			));
+
+		$response = array();
+
+		if($created){
+			$response = array( "message" => "success"	);
+		}else{
+			$response = array( "message" => "Error:003"	);
+		}
+
+		echo json_encode($response);
+		break;
+
+		break;
+
+		default:
 		echo "Error: 002";
+		break;
+
 	}
 
 }else{

@@ -1,22 +1,18 @@
 <?php
-class Application {
+class Applications {
 	private $_db,
 	$_data = array(),
 	$_applicationTableName = 'application';
 
-	public function __construct($token = null) {
+	public function __construct() {
 		$this->_db = DB::getInstance();
 		
-		if($token) {
-			$data = $this->_db->get($this->_applicationTableName, array('token', '=', $token));
-			//$data = $this->_db->query($query);
+			$db = $this->_db->get($this->_applicationTableName, array('active', '=', '1'));
 
-			if($data->count()) {
-				$this->_data = $data->first();
+			if($db->count()) {
+				$this->_data = $db->results() ;
 			}
-		} else {
-			return false;
-		}
+		
 	}
 
 	public function exists() {
@@ -27,7 +23,6 @@ class Application {
 		if(!$this->_db->insert($this->_applicationTableName, $fields)) {
 			throw new Exception('There was a problem creating the application.');
 		}
-		return true;
 	}
 
 	public function update($fields = array(), $id = null) {
