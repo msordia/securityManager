@@ -52,7 +52,7 @@ $apps = $apps->data();
                         <td> $app->token </td>
                         <td> $app->registerDate </td>
                         <td> $app->registeredBy </td> 
-                        <td>   </td> 
+                        <td> <a onclick='deactivate($app->id);' class='tiny button alert'>Desactivate</a> </td> 
                       </tr>";
 
             }
@@ -74,6 +74,11 @@ $apps = $apps->data();
 <script src="js/foundation.min.js"></script>
 <script>
   $(document).foundation();
+
+   function deactivate(id){
+    alert("Deactivate this app? "+ id);
+  }
+
 </script>
 </body>
 </html>

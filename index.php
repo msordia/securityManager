@@ -26,7 +26,7 @@ require 'core/init.php';
           </div>
           <div class="password-field">
             <input name="password" placeholder="Password" type="password" pattern="mypassword">
-            <small class="error">A password is required.</small>
+            <!-- <small class="error">A password is required.</small> -->
           </div>
           <button type="submit">Login</button>
         </form>

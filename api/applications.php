@@ -39,14 +39,20 @@ if(Input::exists()) {
 
 		$applicationToken = Input::get('applicationToken');
 		$username = Input::get('username');
-		$ip = "";
-		$mail = Input::get('mail');
+		$usermail = Input::get('usermail');
+		$userId   = Input::get('userId');
+		$mail     = Input::get('mail');
 		$duration = Input::get('duration');
-		$reason = Input::get('reason');
+		$reason   = Input::get('reason');
+		$ip = "";
+
+		//Extra: verificar que la ip de donde viene el request sea el mismo de donde esta registrada al aplicacion
 
 		$request = new Requests();
 		$created = $request->insert(array(
-			"userId" => $username ,
+			"userId" => $userId ,
+			"username" => $username ,
+			"usermail" => $usermail ,
 			"reason" => $reason ,
 			"duration" => $duration ,
 			"date" => 'now()' ,
