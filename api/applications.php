@@ -41,7 +41,6 @@ if(Input::exists()) {
 		$username = Input::get('username');
 		$usermail = Input::get('usermail');
 		$userId   = Input::get('userId');
-		$mail     = Input::get('mail');
 		$duration = Input::get('duration');
 		$reason   = Input::get('reason');
 		$ip = "";

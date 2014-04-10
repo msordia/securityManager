@@ -1,0 +1,53 @@
+TODO
+
+●	Iteración 1
+○	Un storyboard mostrando las pantallas que se desplegarán en el sistema.
+○	Páginas web no funcionales (solo muestran el diseño) y el flujo del sistema.
+■	Login
+■	Dashboard
+
+●	Iteración 2
+○	Página de inicio de sesión (Login) funcional. El súper usuario podrá ingresar al sistema con un usuario y contraseña otorgados por el sistema.
+○	Posibilidad de hacer logout. El súper usuario podrá cerrar sesión desde el dashboard.
+○	Página para recuperar contraseña (Forgot password). El súper usuario podrá solicitar recuperar su contraseña, en donde ingresará su correo electrónico. Recibirá una nueva contraseña, generada aleatoriamente.
+○	Página de dashboard con layout fluido, que le permite al contenido ajustarse a diferente tamaños de pantalla. Esta página aún no será funcional.
+
+=======================================================================================================================================================================
+
+
+
+
+
+
+
+●   Release 2
+●	Iteración 1
+○	Una aplicación externa podrá registrarse usando el API.
+○	Una aplicación externa podrá enviar los datos para solicitar un nuevo acceso. La llamada a estos dos métodos será hecha usando Fiddler que simulará ser la aplicación externa. 
+
+●	Iteración 2
+○	El sistema registrará correctamente los datos de la llamada a los métodos registerApplication y requestAccess del API.
+○	El sistema tendrá una nueva página donde se puede ver un resumen de las solicitudes de acceso que fueron hechas por las aplicaciones externas. Para esta iteración esta interfaz solo será una lista, sin funcionalidad.
+○	Se creará una nueva página no funcional llamada apps.php donde se podrá ver un resumen de la aplicaciones externas que se registraron para usar el gestor de seguridad.
+
+=======================================================================================================================================================================
+
+●      Release 3
+●	Iteración 1
+○	La interfaz de resumen de solicitudes de acceso mostrará una tabla con los detalles de todas las solicitudes de acceso pendiente, permitirá también que el superusuario acepte o rechace la solicitud.
+○	Al aceptar o rechazar la solicitud el sistema generará un correo electrónico para el usuario de la aplicación correspondiente para avisarle de la respuesta.
+○	La página apps.php será funcional. La página ya muestra el resumen de las aplicaciones registradas y además permite eliminar individualmente las aplicaciones.
+
+●	Iteración 2
+○	Se creará una nueva página viewReport.php donde el súper usuario podrá solicitar ver un reporte de los accesos que fueron solicitados, por una aplicación en específico, en un determinado periodo de tiempo. Los resultados serán desplegados en una tabla.
+○	Se creará una nueva página audit.php donde el súper usuario podrá dar de alta un nuevo auditor. El sistema generará un token para que pueda ingresar a ver un reporte de auditoría.
+■	El reporte de auditoría será generado a partir de los siguientes datos:
+●	Aplicación a auditar
+●	Período de tiempo
+●	Log de actividades de la aplicación vs. solicitudes de acceso realizadas.
+=======================================================================================================================================================================
+
+●      Final
+○	El sistema podrá pedirle a una aplicación externa el log de actividades.
+○	El súper usuario podrá cambiar sus datos personales en la página de settings.
+○	Integración de iteraciones anteriores.
