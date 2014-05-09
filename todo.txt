@@ -24,7 +24,6 @@ La llamada a estos dos métodos será hecha usando Fiddler que simulará ser la 
 ○	El sistema tendrá una nueva página donde se puede ver un resumen de las solicitudes de acceso que fueron hechas por las aplicaciones externas. Para esta iteración esta interfaz solo será una lista, sin funcionalidad.
 ○	Se creará una nueva página no funcional llamada apps.php donde se podrá ver un resumen de la aplicaciones externas que se registraron para usar el gestor de seguridad.
 
-========================================================================================================================================================
 
 ●      Release 3
 ●	Iteración 1
@@ -34,6 +33,7 @@ La llamada a estos dos métodos será hecha usando Fiddler que simulará ser la 
 
 ●	Iteración 2
 ○	Se creará una nueva página viewReport.php donde el súper usuario podrá solicitar ver un reporte de los accesos que fueron solicitados, por una aplicación en específico, en un determinado periodo de tiempo. Los resultados serán desplegados en una tabla.
+========================================================================================================================================================
 ○	Se creará una nueva página audit.php donde el súper usuario podrá dar de alta un nuevo auditor. El sistema generará un token para que pueda ingresar a ver un reporte de auditoría.
 ■	El reporte de auditoría será generado a partir de los siguientes datos:
 ●	Aplicación a auditar

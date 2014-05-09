@@ -48,11 +48,11 @@ $apps = $apps->data();
            <?php
            foreach ($apps as $app) {
             
-             echo "<tr> <td> $app->name </td>
+             echo "<tr id='$app->id'> <td> $app->name </td>
                         <td> $app->token </td>
                         <td> $app->registerDate </td>
                         <td> $app->registeredBy </td> 
-                        <td> <a onclick='deactivate($app->id);' class='tiny button alert'>Desactivate</a> </td> 
+                        <td> <a onclick=\"deactivate($app->id,'$app->token', '$app->name');\" class='tiny button alert'>Desactivate</a> </td> 
                       </tr>";
 
             }
@@ -61,8 +61,6 @@ $apps = $apps->data();
           
         </tbody>
       </table>
-
-
 
     </div>
   </div>
@@ -75,8 +73,21 @@ $apps = $apps->data();
 <script>
   $(document).foundation();
 
-   function deactivate(id){
-    alert("Deactivate this app? "+ id);
+   function deactivate(id, token, name){
+    var r = confirm("Do you want to deactivate the '"+name+"' app? ");
+    if(!r) return;
+
+    $.post( "controls/doAction.php", { action:"deactivateApp", token: token, id:id })
+      .done(function( data ) {
+        data = JSON.parse(data);
+        if(data.message == 'success'){
+          alert("The application was deactivated successfully");
+          var elem = "tr#"+id;
+          $(elem).remove();
+        }else{
+          alert("There was an error: " + data.message);
+        }
+      });
   }
 
 </script>

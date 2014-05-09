@@ -16,37 +16,37 @@ if(Input::exists()) {
 			-Se le comunica la informacion de ese token a la aplicacion correspondiente para que despues pueda darle acceso al usuario.
 		*/
 
-		$id = Input::get('id');
-		$token = Hash::unique();
-		$response = array();
+			$id = Input::get('id');
+			$token = Hash::unique();
+			$response = array();
 
-		try {
-			
-			$mailer = new Mailer();
-			$req = new Requests();
+			try {
 
-			$req->update(array('accessToken' => $token, 'approved' => '1', "pending" => '0'), $id);
-			$req->getRequest($id);
-			$data = $req->data();
-			$to   = $data[0]->usermail;
-			$username = $data[0]->username;
+				$mailer = new Mailer();
+				$req = new Requests();
 
-			$to = Input::get('to');
-			$subject = "Security Manager - Access request accepted";
-			$message = "Hello $username, your access token is: $token \n\n Please don't reply to this message.";
+				$req->update(array('accessToken' => $token, 'approved' => '1', "pending" => '0'), $id);
+				$req->getRequest($id);
+				$data = $req->data();
+				$to   = $data[0]->usermail;
+				$username = $data[0]->username;
+
+				$to = Input::get('to');
+				$subject = "Security Manager - Access request accepted";
+				$message = "Hello $username, your access token is: $token \n\n Please don't reply to this message.";
 			//$mailer->send($to, $subject, $message);
 
-		} catch(Exception $e) {
-			$response = array( "message" => "Error:003"	);
-			die($e->getMessage());
-		}
+			} catch(Exception $e) {
+				$response = array( "message" => "Error:003"	);
+				die($e->getMessage());
+			}
 
-		$response = array( "message" => "success");
-		echo json_encode($response);
+			$response = array( "message" => "success");
+			echo json_encode($response);
 
-		break;
+			break;
 
-		case "rejectReq":
+			case "rejectReq":
 
 			$id = Input::get('id');
 			$response = array();
@@ -75,9 +75,9 @@ if(Input::exists()) {
 			$response = array( "message" => "success");
 
 			echo json_encode($response);
-		break;
+			break;
 
-		case "getReport":
+			case "getReport":
 
 			$applicationToken = Input::get('applicationToken');
 			$dateFrom = Input::get('dateFrom');
@@ -89,9 +89,9 @@ if(Input::exists()) {
 
 			echo json_encode($response);
 
-		break;
+			break;
 
-		case "getApplicationData":
+			case "getApplicationData":
 
 			$applications = new Applications();
 			$allowed = array("token", "name");
@@ -101,26 +101,45 @@ if(Input::exists()) {
 			}
 			echo json_encode($response);
 
-		break;
+			break;
 
-		default:
+			case "deactivateApp":
+
+				$token = Input::get('token');
+				$id = Input::get('id');
+				$response = array();
+
+				try {
+					$app = new Application($token);
+					$app->update(array('active' => '0'), $id);
+				} catch(Exception $e) {
+					$response = array( "message" => "Error:003"	);
+					die($e->getMessage());
+				}
+				
+				$response = array( "message" => "success");
+				echo json_encode($response);
+
+			break;
+
+			default:
 			echo "Error: 002";
-		break;
+			break;
 
+		}
+
+	}else{
+		echo "Error: 001";
 	}
 
-}else{
-	echo "Error: 001";
-}
 
-
-function objectToArray($d) {
+	function objectToArray($d) {
 		if (is_object($d)) {
 			// Gets the properties of the given object
 			// with get_object_vars function
 			$d = get_object_vars($d);
 		}
- 
+
 		if (is_array($d)) {
 			/*
 			* Return array converted to object
@@ -134,5 +153,5 @@ function objectToArray($d) {
 			return $d;
 		}
 	}
- 
-?>
+
+	?>
