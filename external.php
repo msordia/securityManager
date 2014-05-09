@@ -72,6 +72,7 @@
       .done(function( data ) {
         console.log("makeRequest finished, data:")
         console.log(data);
+        alert("Request successful");
       });
   }
 

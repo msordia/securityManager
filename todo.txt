@@ -12,25 +12,19 @@ TODO
 ○	Página para recuperar contraseña (Forgot password). El súper usuario podrá solicitar recuperar su contraseña, en donde ingresará su correo electrónico. Recibirá una nueva contraseña, generada aleatoriamente.
 ○	Página de dashboard con layout fluido, que le permite al contenido ajustarse a diferente tamaños de pantalla. Esta página aún no será funcional.
 
-=======================================================================================================================================================================
-
-
-
-
-
-
 
 ●   Release 2
 ●	Iteración 1
 ○	Una aplicación externa podrá registrarse usando el API.
-○	Una aplicación externa podrá enviar los datos para solicitar un nuevo acceso. La llamada a estos dos métodos será hecha usando Fiddler que simulará ser la aplicación externa. 
+○	Una aplicación externa podrá enviar los datos para solicitar un nuevo acceso. 
+La llamada a estos dos métodos será hecha usando Fiddler que simulará ser la aplicación externa. 
 
 ●	Iteración 2
 ○	El sistema registrará correctamente los datos de la llamada a los métodos registerApplication y requestAccess del API.
 ○	El sistema tendrá una nueva página donde se puede ver un resumen de las solicitudes de acceso que fueron hechas por las aplicaciones externas. Para esta iteración esta interfaz solo será una lista, sin funcionalidad.
 ○	Se creará una nueva página no funcional llamada apps.php donde se podrá ver un resumen de la aplicaciones externas que se registraron para usar el gestor de seguridad.
 
-=======================================================================================================================================================================
+========================================================================================================================================================
 
 ●      Release 3
 ●	Iteración 1

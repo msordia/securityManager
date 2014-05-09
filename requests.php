@@ -40,7 +40,7 @@ $requests = $requests->getAllPendingRequests();
              <th width="200">Reason</th> 
              <th width="200">Duration</th> 
              <th width="200">Date</th> 
-             <th width="300">Accept / Deny</th> 
+             <th width="300">Accept / Reject</th> 
            </tr> 
          </thead>
 
@@ -65,8 +65,6 @@ $requests = $requests->getAllPendingRequests();
         </tbody>
       </table>
 
-
-
     </div>
   </div>
 </div>
@@ -80,10 +78,20 @@ $requests = $requests->getAllPendingRequests();
 <script>
   function acceptReq(id){
     alert("accept Req " + id);
+    $.post( "controls/doAction.php", { action:"acceptReq", id: id })
+      .done(function( data ) {
+        console.log("acceptReq finished, data:")
+        console.log(data);
+      });
   }
 
    function rejectReq(id){
     alert("reject Req "+ id);
+    $.post( "controls/doAction.php", { action:"acceptReq", id: id })
+      .done(function( data ) {
+        console.log("rejectReq finished, data:")
+        console.log(data);
+      });
   }
 
 </script>
