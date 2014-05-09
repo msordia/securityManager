@@ -25,16 +25,16 @@ if(Input::exists()) {
 			$mailer = new Mailer();
 			$req = new Requests();
 
-			$req->update(array('accessToken' => $token, 'approved' => '1'), $id);
+			$req->update(array('accessToken' => $token, 'approved' => '1', "pending" => '0'), $id);
 			$req->getRequest($id);
-			var_dump($req->data());
-			$to   = $req->data()->usermail;
-			$username = $req->data()->username;
+			$data = $req->data();
+			$to   = $data[0]->usermail;
+			$username = $data[0]->username;
 
 			$to = Input::get('to');
 			$subject = "Security Manager - Access request accepted";
 			$message = "Hello $username, your access token is: $token \n\n Please don't reply to this message.";
-			$mailer->send($to, $subject, $message);
+			//$mailer->send($to, $subject, $message);
 
 		} catch(Exception $e) {
 			$response = array( "message" => "Error:003"	);
@@ -48,34 +48,31 @@ if(Input::exists()) {
 
 		case "rejectReq":
 
-			$applicationToken = Input::get('applicationToken');
-			$username = Input::get('username');
-			$usermail = Input::get('usermail');
-			$userId   = Input::get('userId');
-			$duration = Input::get('duration');
-			$reason   = Input::get('reason');
-			$ip = "";
-
-			//Extra: verificar que la ip de donde viene el request sea el mismo de donde esta registrada al aplicacion
-
-			$request = new Requests();
-			$created = $request->insert(array(
-				"userId" => $userId ,
-				"username" => $username ,
-				"usermail" => $usermail ,
-				"reason" => $reason ,
-				"duration" => $duration ,
-				"date" => 'now()' ,
-				"applicationToken" => $applicationToken
-				));
-
+			$id = Input::get('id');
 			$response = array();
 
-			if($created){
-				$response = array( "message" => "success"	);
-			}else{
+			try {
+				
+				$mailer = new Mailer();
+				$req = new Requests();
+
+				$req->update(array('approved' => '0', "pending" => '0'), $id);
+				$req->getRequest($id);
+				$data = $req->data();
+				$to   = $data[0]->usermail;
+				$username = $data[0]->username;
+
+				$to = Input::get('to');
+				$subject = "Security Manager - Access request denied";
+				$message = "Hello $username, your request for access has been rejected.\n\n Please don't reply to this message.";
+				//$mailer->send($to, $subject, $message);
+
+			} catch(Exception $e) {
 				$response = array( "message" => "Error:003"	);
+				die($e->getMessage());
 			}
+
+			$response = array( "message" => "success");
 
 			echo json_encode($response);
 		break;

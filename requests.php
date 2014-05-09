@@ -49,7 +49,7 @@ $requests = $requests->getAllPendingRequests();
            <?php
            foreach ($requests as $request) {
             
-             echo "<tr> <td> $request->appName </td>
+             echo "<tr id='$request->id'> <td> $request->appName </td>
                         <td> $request->username </td>
                         <td> $request->reason </td>
                         <td> $request->duration </td> 
@@ -77,20 +77,28 @@ $requests = $requests->getAllPendingRequests();
 
 <script>
   function acceptReq(id){
-    alert("accept Req " + id);
     $.post( "controls/doAction.php", { action:"acceptReq", id: id })
       .done(function( data ) {
-        console.log("acceptReq finished, data:")
-        console.log(data);
+        data = JSON.parse(data);
+        if(data.message == 'success'){
+          alert("Request accepted successfully");
+        }else{
+          alert("There was an error: " + data.message);
+        }
       });
   }
 
    function rejectReq(id){
-    alert("reject Req "+ id);
     $.post( "controls/doAction.php", { action:"acceptReq", id: id })
       .done(function( data ) {
-        console.log("rejectReq finished, data:")
-        console.log(data);
+        data = JSON.parse(data);
+        if(data.message == 'success'){
+          alert("Request rejected successfully");
+          var elem = "tr#"+id;
+          $(elem).remove();
+        }else{
+          alert("There was an error: " + data.message);
+        }
       });
   }
 
