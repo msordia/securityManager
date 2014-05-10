@@ -122,6 +122,25 @@ if(Input::exists()) {
 
 			break;
 
+			case "registerAuditor":
+				$name     = Input::get('name');
+				$company  = Input::get('company');
+				$token = Hash::unique();
+				$response = array();
+
+				try {
+					$auditors = new Auditors();
+					$auditors->create(array('name' => $name, 'company' => $company, 'date'=> date('Y-m-d H:i:s'), 'accessToken' => $token ));
+				} catch(Exception $e) {
+					$response = array( "message" => "Error:003"	);
+					die($e->getMessage());
+				}
+				
+				$response = array( "message" => "success", "accessToken"=> $token);
+				echo json_encode($response);
+
+			break;
+
 			default:
 			echo "Error: 002";
 			break;

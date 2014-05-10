@@ -33,7 +33,7 @@ $user->checkIsValidUser();
         <li class="text-centered"> <a href="requests.php"> <img class="th" src="img/1.jpg"> <h5>Pending requests</h5> </a> </li>
         <li class="text-centered"> <a href="registeredApps.php"> <img class="th" src="img/2.jpg"> <h5>Registered Applications</h5> </a> </li>
         <li class="text-centered"> <a href="reports.php"> <img class="th" src="img/3.jpg"> <h5>View report</h5> </a> </li>
-        <li class="text-centered"> <a href="pending.php"> <img class="th" src="img/4.jpg"> <h5>Audit</h5> </a> </li>
+        <li class="text-centered"> <a href="audit.php"> <img class="th" src="img/4.jpg"> <h5>Audit</h5> </a> </li>
         <li class="text-centered"> <a href="pending.php"> <img class="th" src="img/5.jpg"> <h5>Settings</h5> </a> </li>
      </ul>
      
