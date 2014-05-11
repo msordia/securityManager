@@ -33,15 +33,19 @@ La llamada a estos dos métodos será hecha usando Fiddler que simulará ser la 
 
 ●	Iteración 2
 ○	Se creará una nueva página viewReport.php donde el súper usuario podrá solicitar ver un reporte de los accesos que fueron solicitados, por una aplicación en específico, en un determinado periodo de tiempo. Los resultados serán desplegados en una tabla.
-========================================================================================================================================================
+
 ○	Se creará una nueva página audit.php donde el súper usuario podrá dar de alta un nuevo auditor. El sistema generará un token para que pueda ingresar a ver un reporte de auditoría.
+
 ■	El reporte de auditoría será generado a partir de los siguientes datos:
 ●	Aplicación a auditar
 ●	Período de tiempo
-●	Log de actividades de la aplicación vs. solicitudes de acceso realizadas.
-=======================================================================================================================================================================
 
+El súper usuario podrá cambiar sus datos personales en la página de settings.
+○	Integración de iteraciones anteriores.
+
+
+=======================================================================================================================================================================
+●	Log de actividades de la aplicación vs. solicitudes de acceso realizadas.
 ●      Final
 ○	El sistema podrá pedirle a una aplicación externa el log de actividades.
-○	El súper usuario podrá cambiar sus datos personales en la página de settings.
-○	Integración de iteraciones anteriores.
+○	
