@@ -44,9 +44,9 @@
 
        <br/><br/>
        <p>Register an app.</p>
-       <span>applicationName</span>  <input type="text" value="" name="applicationName" id="applicationName"><br/>
-       <span>username</span>         <input type="text" value="" name="username" id="username"><br/>
-       <span>url</span>              <input type="text" value="" name="url" id="url"><br/>
+       <span>applicationName</span>  <input type="text" value="Test Application" name="applicationName" id="applicationName"><br/>
+       <span>username</span>         <input type="text" value="JohnDoe" name="username" id="username2"><br/>
+       <span>url</span>              <input type="text" value="http://localhost:8082/gestor/external/externalApi.php" name="url" id="url"><br/>
        <button class="small" onclick="registerApp()">Register app</button>
 
         </tbody>
@@ -68,7 +68,7 @@
     var reason   = $("#reason").val();
     var appToken = $("#applicationToken").val();
 
-    $.post( "http://localhost:8082/gestor/api/applications.php", { action:"requestAccess", username: username, usermail:usermail, userId:userId, duration:duration, reason:reason, applicationToken: appToken, })
+    $.post( "http://localhost:8082/gestor/api/applications.php", { action:"requestAccess", username: username, usermail:usermail, userId:userId, duration:duration, reason:reason, applicationToken: appToken })
       .done(function( data ) {
         console.log("makeRequest finished, data:")
         console.log(data);
@@ -77,7 +77,16 @@
   }
 
   function registerApp(){
-  alert("Registering app");
+    var applicationName = $("#applicationName").val();
+    var username = $("#username2").val();
+    var url = $("#url").val();
+    
+    $.post( "http://localhost:8082/gestor/api/applications.php", { action:"registerApplication", username: username, url:url, applicationName:applicationName})
+      .done(function( data ) {
+        console.log("registerApp finished, data:")
+        console.log(data);
+        alert("RegisterApp successful");
+      });
 }
 
 </script>

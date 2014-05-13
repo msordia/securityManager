@@ -50,7 +50,7 @@ class Mailer {
 		$message = file_get_contents('../includes/templates/mails/accessDenied.html');
 		$message = str_replace('$username', $username, $message);
 
-		send ($to, $subject, $message);
+		$this->send($to, $subject, $message);
 	}
 
 	/*Enviar un mail de aceptacion solicitud de acceso*/

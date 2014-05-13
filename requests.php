@@ -79,9 +79,12 @@ $requests = $requests->getAllPendingRequests();
   function acceptReq(id){
     $.post( "controls/doAction.php", { action:"acceptReq", id: id })
       .done(function( data ) {
-        data = JSON.parse(data);
+        try{ data = JSON.parse(data);}
+        catch(e){ alert("There was an error, please try again."); return;}
         if(data.message == 'success'){
           alert("Request accepted successfully");
+          var elem = "tr#"+id;
+          $(elem).remove();
         }else{
           alert("There was an error: " + data.message);
         }
@@ -89,9 +92,10 @@ $requests = $requests->getAllPendingRequests();
   }
 
    function rejectReq(id){
-    $.post( "controls/doAction.php", { action:"acceptReq", id: id })
+    $.post( "controls/doAction.php", { action:"rejectReq", id: id })
       .done(function( data ) {
-        data = JSON.parse(data);
+        try{ data = JSON.parse(data);}
+        catch(e){ alert("There was an error, please try again."); return;}
         if(data.message == 'success'){
           alert("Request rejected successfully");
           var elem = "tr#"+id;
@@ -99,6 +103,7 @@ $requests = $requests->getAllPendingRequests();
         }else{
           alert("There was an error: " + data.message);
         }
+
       });
   }
 
