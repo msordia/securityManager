@@ -48,3 +48,11 @@ table td{
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+.apprvd{
+    color: #61AD22;
+}
+
+.rjctd{
+    color: #FF0000;   
+}

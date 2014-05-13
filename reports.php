@@ -37,29 +37,33 @@ $user->checkIsValidUser();
        <br/>
 
        Start date
-       <input id="dateFrom" type="date" placeholder="MM/DD/YYYY" value="02/02/2014"> <br/>
+       <input id="dateFrom" type="date" placeholder="MM/DD/YYYY" value="01/01/2014"> <br/>
        End date
-       <input id="dateTo" type="date" placeholder="MM/DD/YYYY" value="01/01/2014">
+       <input id="dateTo" type="date" placeholder="MM/DD/YYYY" value="05/05/2014">
 
        <a href="#" onclick="getReport()" class="button">Get Report</a>
 
-       <table id="tblReport"> 
-         <thead> 
-           <tr> 
-             <th width="200">User</th> 
-             <th width="200">Reason</th> 
-             <th width="200">Duration</th> 
-             <th width="200">Date</th> 
-             <th width="300">Was accepted</th> 
-           </tr> 
-         </thead>
+       <div id="details" style="display:none;">
+         <table id="tblReport"> 
+           <thead> 
+             <tr> 
+               <th width="200">User</th> 
+               <th width="200">Reason</th> 
+               <th width="200">Duration</th> 
+               <th width="200">Date</th> 
+               <th width="300">Was accepted</th> 
+             </tr> 
+           </thead>
 
-         <tbody> 
+           <tbody> 
 
 
-         </tbody>
-       </table>
+           </tbody>
+         </table>
 
+         <h4 style="display:none;">There is no activity recorded.</h4>
+
+       </div>
 
 
      </div>
@@ -101,29 +105,40 @@ $user->checkIsValidUser();
 
 
  function getReport(){
-          var application = $("#application").find(":selected").attr("token");
-          var dateFrom    = $("#dateFrom").val();
-          var dateTo      = $("#dateTo").val();
-          $.post( "controls/doAction.php", { action:"getReport", applicationToken: application, dateFrom: dateFrom, dateTo: dateTo })
-          .done(function( data ) {
-            
-            data = JSON.parse(data);
-            var html = "";
-            
-            for(var k in data) {
-             var r = template;
-             r = r.replace("$usr", data[k].username);
-             r = r.replace("$rsn", data[k].reason);
-             r = r.replace("$drtn", data[k].duration);
-             r = r.replace("$date", data[k].date);
-             r = r.replace("$aprvd", data[k].approved == '0'? 'Rejected' : 'Approved');
-             html += r;
-           }
-           $("#tblReport").find('tbody').html(html);
-           
-         });
-        }
+  var application = $("#application").find(":selected").attr("token");
+  var dateFrom    = $("#dateFrom").val();
+  var dateTo      = $("#dateTo").val();
+  $.post( "controls/doAction.php", { action:"getReport", applicationToken: application, dateFrom: dateFrom, dateTo: dateTo })
+  .done(function( data ) {
 
-      </script>
-  </body>
-  </html>
+    data = JSON.parse(data);
+    var html = "";
+
+    if(data.length == 0){
+      $("#tblReport").hide();
+      $("#details").show();
+      $("#details").find('h4').slideDown();
+
+    }else{
+      for(var k in data) {
+       var r = template;
+       r = r.replace("$usr", data[k].username);
+       r = r.replace("$rsn", data[k].reason);
+       r = r.replace("$drtn", data[k].duration);
+       r = r.replace("$date", data[k].date);
+       r = r.replace("$aprvd", data[k].approved == '0'? '<span class="rjctd">Rejected</span>' : '<span class="apprvd">Approved</span>');
+       html += r;
+     }
+     $("#tblReport").show().find('tbody').html(html);
+     $("#details").show();
+     $("#details").find('h4').hide();
+   }
+
+
+
+ });
+}
+
+</script>
+</body>
+</html>

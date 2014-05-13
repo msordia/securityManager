@@ -126,17 +126,31 @@ require 'core/init.php';
             data = JSON.parse(data);
             var html = "";
             
-            for(var k in data) {
+            var report = data[0];
+            for(var k in report) {
              var r = template;
-             r = r.replace("$usr", data[k].username);
-             r = r.replace("$rsn", data[k].reason);
-             r = r.replace("$drtn", data[k].duration);
-             r = r.replace("$date", data[k].date);
-             r = r.replace("$aprvd", data[k].approved == '0'? 'Rejected' : 'Approved');
+             r = r.replace("$usr", report[k].username);
+             r = r.replace("$rsn", report[k].reason);
+             r = r.replace("$drtn", report[k].duration);
+             r = r.replace("$date", report[k].date);
+             r = r.replace("$aprvd", report[k].approved == '0'? 'Rejected' : 'Approved');
              html += r;
            }
            $("#tblReport").find('tbody').html(html);
-           $("#details").slideDown();
+
+           var log = data[1];
+           html = "";
+          for(var k in log) {
+             var r = template;
+             r = r.replace("$usr", log[k].username);
+             r = r.replace("$rsn", log[k].reason);
+             r = r.replace("$drtn", log[k].duration);
+             r = r.replace("$date", log[k].date);
+             r = r.replace("$aprvd", log[k].approved == '0'? 'Rejected' : 'Approved');
+             html += r;
+          }
+          $("#tblReportApp").find('tbody').html(html);
+          $("#details").slideDown();
            
          });
         }

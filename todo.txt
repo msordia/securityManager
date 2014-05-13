@@ -49,3 +49,10 @@ El súper usuario podrá cambiar sus datos personales en la página de settings.
 ●      Final
 ○	El sistema podrá pedirle a una aplicación externa el log de actividades.
 ○	
+
+
+
+
+MEJORAS:
+-Que el reporte se pueda exportar como un archivo CSV 
+-

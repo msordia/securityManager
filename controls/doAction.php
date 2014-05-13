@@ -31,10 +31,7 @@ if(Input::exists()) {
 				$to   = $data[0]->usermail;
 				$username = $data[0]->username;
 
-				$to = Input::get('to');
-				$subject = "Security Manager - Access request accepted";
-				$message = "Hello $username, your access token is: $token \n\n Please don't reply to this message.";
-			//$mailer->send($to, $subject, $message);
+			    $mailer->sendRequestAccessAccepted ($to, $username, $token);
 
 			} catch(Exception $e) {
 				$response = array( "message" => "Error:003"	);
@@ -63,9 +60,7 @@ if(Input::exists()) {
 				$username = $data[0]->username;
 
 				$to = Input::get('to');
-				$subject = "Security Manager - Access request denied";
-				$message = "Hello $username, your request for access has been rejected.\n\n Please don't reply to this message.";
-				//$mailer->send($to, $subject, $message);
+				$mailer->sendRequestAccessDenied($to,$username);
 
 			} catch(Exception $e) {
 				$response = array( "message" => "Error:003"	);
@@ -150,44 +145,42 @@ if(Input::exists()) {
 			$accessToken      = Input::get('accessToken');
 			$response         = array();
 
-				/*
-					Verificar que el token del auditor exista
-					Posibles Mejoras: Dar un frame de tiempo para que el auditor solo pueda ver el reporte durante cierto tiempo
+		/*
+			Verificar que el token del auditor exista
+			Posibles Mejoras: Dar un frame de tiempo para que el auditor solo pueda ver el reporte durante cierto tiempo
+		*/
 
-				*/
+			$req = new Requests();
+			$report = $req->getRequestReport($applicationToken, $dateFrom, $dateTo);
 
-					$req = new Requests();
-					$response = $req->getRequestReport($applicationToken, $dateFrom, $dateTo);
+		/*
+			Pedir un log de actividades a la aplicacion
+		*/
 
-					echo json_encode($response);
+			$app = new Application($applicationToken);
+			$url = urlencode($app->data()->url);
+			//$url = "http://localhost:8082/gestor/external/externalApi.php";
+			$data = array('dateFrom' => $dateFrom, 'dateTo' => $dateTo);
 
-				/*
-					Pedir un log de actividades a la aplicacion
-				*/
+			try {
+				$ch = curl_init($url);
+				curl_setopt($ch, CURLOPT_POST, 1);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				$log = curl_exec($ch);
+				curl_close($ch);
 
-					$app = new Application($applicationToken);
-					//$url = urlencode($app->data()->url);
-					$url = "http://localhost:8082/gestor/external/externalApi.php";
-					$data = array('dateFrom' => $dateFrom, 'dateTo' => $dateTo);
+				$response[0] = $report;
+				$response[1] = $log;
+				echo (json_encode($response));
 
+			} catch(Exception $e) {
+				echo("error");
+				die($e->getMessage());
+			}
+			
 
-					//echo('here');
-					try {
-						$ch = curl_init($url);
-						var_dump($ch);
-						curl_setopt($ch, CURLOPT_POST, 1);
-						curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-						curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-						$response = curl_exec($ch);
-						curl_close($ch);
-						echo (json_encode($response));
-					} catch(Exception $e) {
-						echo("error");
-						die($e->getMessage());
-					}
-					
-
-					break;
+			break;
 
 					case "updateSettings":
 
