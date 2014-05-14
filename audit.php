@@ -28,16 +28,17 @@ $user->checkIsValidUser();
      <div class="panel">
        <h3>Audit </h3>
        <p>Register a new auditor.</p>
+        <div id="form-wrap">
+           Name:
+           <input id="name" type="text" placeholder="Auditor full name"> <br/>
+           Company:
+           <input id="company" type="text" placeholder="">
+           <a href="#" onclick="registerAuditor()" class="button">Register and get token</a>
 
-       Name:
-       <input id="name" type="text" placeholder="Auditor full name"> <br/>
-       Company:
-       <input id="company" type="text" placeholder="">
-
-       <a href="#" onclick="registerAuditor()" class="button">Register and get token</a>
-
-       <div>Token: <span id="accessToken"></span> </div>
-
+        </div>
+       <div id="token-wrap" style="display:none">
+        <h4>The auditor was successfully registered.</h4>
+        Token: <span id="accessToken"></span> </div>
      </div>
    </div>
  </div>
@@ -59,12 +60,16 @@ $user->checkIsValidUser();
 
   $.post( "controls/doAction.php", { action:"registerAuditor", name: name, company: company })
   .done(function( data ) {
-    data = JSON.parse(data);
-   if(data.message == 'success'){
-    $("#accessToken").text(data.accessToken);
-  }else{
-    alert("There was an error registering the auditor.");
-  }
+    try{ data = JSON.parse(data);}
+    catch(e){ alert("There was an error, please try again."); return;}
+    
+    if(data.message == 'success'){
+      $("#accessToken").text(data.accessToken);
+      $("#token-wrap").show();
+      $("#form-wrap").hide();
+    }else{
+      alert("There was an error registering the auditor.");
+    }
 
 });
 }

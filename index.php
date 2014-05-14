@@ -51,10 +51,17 @@ require 'core/init.php';
 
       $.post( "controls/verifyLogin.php", { username: user, password: pass})
       .done(function( data ) {
-        if(data == "error"){
-          showError();
+
+
+        try{ data = JSON.parse(data);}
+        catch(e){ alert("There was an error, please try again."); return;}
+
+        if(data.message == 'success'){
+          window.location.replace(data.page);
+          
         }else{
-          window.location.replace(data);
+          alert("There password or email are incorrect, please try again.");
+          showError();
         }
       });
     }

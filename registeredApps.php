@@ -39,7 +39,7 @@ $apps = $apps->data();
              <th width="200">Token</th> 
              <th width="200">Registered Date</th> 
              <th width="200">Reistered by</th> 
-             <th width="300">Activate / Deactivate</th> 
+             <th width="300">Deactivate</th> 
            </tr> 
          </thead>
 

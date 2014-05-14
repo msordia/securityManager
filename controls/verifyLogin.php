@@ -7,12 +7,15 @@ if(Input::exists()) {
 
 	$remember = (Input::get('remember') === 'on') ? true : false;
 	$login = $user->login(Input::get('username'), Input::get('password'), $remember);
+	$response = array();
 
 	if($login) {
-		echo 'dashboard.php';
+		$response = array( "message" => "success", "page" => 'dashboard.php');
 	} else {
-		echo 'error';
+		$response = array( "message" => "error");
 	}
+
+	echo json_encode($response);
 
 }else{
 	echo "error";
