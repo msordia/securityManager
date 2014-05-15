@@ -40,9 +40,9 @@ require 'core/init.php';
        <br/>
 
        Start date
-       <input id="dateFrom" type="date" placeholder="MM/DD/YYYY" value="02/02/2014"> <br/>
+       <input id="dateFrom" type="date" placeholder="MM/DD/YYYY" value="01/01/2014"> <br/>
        End date
-       <input id="dateTo" type="date" placeholder="MM/DD/YYYY" value="01/01/2014"> <br/>
+       <input id="dateTo" type="date" placeholder="MM/DD/YYYY" value="02/02/2014"> <br/>
 
        Token:
        <input id="token" type="text" placeholder="Your access token as an auditor"> <br/>

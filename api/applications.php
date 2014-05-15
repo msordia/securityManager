@@ -18,7 +18,7 @@ if(Input::exists()) {
 		$app = new Application();
 		$created = $app->create(array(
 			"name" => $applicationName,
-			"registerDate" => 'now()',
+			"registerDate" => date('Y-m-d H:i:s'),
 			"registeredBy" => $username,
 			"token" => $token,
 			"url" => $url
@@ -54,7 +54,7 @@ if(Input::exists()) {
 			"usermail" => $usermail ,
 			"reason" => $reason ,
 			"duration" => $duration ,
-			"date" => 'now()' ,
+			"date" => date('Y-m-d H:i:s') ,
 			"applicationToken" => $applicationToken
 			));
 
