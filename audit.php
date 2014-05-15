@@ -37,14 +37,22 @@ $user->checkIsValidUser();
      <div class="panel">
        <h3>Audit </h3>
        <p>Register a new auditor.</p>
+       <form data-abide>  
         <div id="form-wrap">
+          <div>
            Name:
-           <input id="name" type="text" placeholder="Auditor full name"> <br/>
-           Company:
-           <input id="company" type="text" placeholder="">
-           <a href="#" onclick="registerAuditor()" class="button">Register and get token</a>
+           <input id="name" type="text" placeholder="Auditor full name" required pattern="[a-zA-Z]+">
+           <small class="error">Name is required and must be a string.</small> 
+          </div>
+          <div>
+            Company:
+            <input id="company" type="text" placeholder="" required pattern="[a-zA-Z]+">
+            <small class="error">Name is required and must be a string.</small> 
+          </div>
+          <a href="#" onclick="registerAuditor()" class="button">Register and get token</a>
 
         </div>
+        </form>
        <div id="token-wrap" style="display:none">
         <h4>The auditor was successfully registered.</h4>
         Token: <span id="accessToken"></span> </div>
@@ -67,6 +75,16 @@ $user->checkIsValidUser();
   var name    = $("#name").val();
   var company = $("#company").val();
 
+  if(name.trim().length == 0 || company.trim().length == 0){
+    alert("The input fields cant be empty.");
+  }
+  else if(name.trim().length < 4){
+    alert("The name must be at least 4 characters long.");
+  }
+  else if(company.trim().length < 4){
+    alert("The company must be at least 4 characters long.");
+  }else{
+
   $.post( "controls/doAction.php", { action:"registerAuditor", name: name, company: company })
   .done(function( data ) {
     try{ data = JSON.parse(data);}
@@ -79,8 +97,9 @@ $user->checkIsValidUser();
     }else{
       alert("There was an error registering the auditor.");
     }
+  });
+}
 
-});
 }
 
 </script>
