@@ -49,42 +49,42 @@ require 'core/init.php';
 
        <a href="#" onclick="getReport()" class="button">Get Report</a>
 
-        <div id="details" style="display:none;">
-               <h3> Access requests </h3>
-               <p> Information from the security management</p>
-               <table id="tblReport"> 
-                 <thead> 
-                   <tr> 
-                     <th width="200">User</th> 
-                     <th width="200">Reason</th> 
-                     <th width="200">Duration</th> 
-                     <th width="200">Date</th> 
-                     <th width="300">Was accepted</th> 
-                   </tr> 
-                 </thead>
+       <div id="details" style="display:none;">
+         <h3> Access requests </h3>
+         <p> Information from the security management</p>
+         <table id="tblReport"> 
+           <thead> 
+             <tr> 
+               <th width="200">User</th> 
+               <th width="200">Reason</th> 
+               <th width="200">Duration</th> 
+               <th width="200">Date</th> 
+               <th width="300">Was accepted</th> 
+             </tr> 
+           </thead>
 
-                 <tbody> 
-                 </tbody>
-               </table>
+           <tbody> 
+           </tbody>
+         </table>
 
-               <h3> Actual access and modifications made inside the application. </h3>
-               <p> Information from the application log</p>
-               <table id="tblReportApp"> 
-                 <thead> 
-                   <tr> 
-                     <th width="200">User</th> 
-                     <th width="200">Reason</th> 
-                     <th width="200">Duration</th> 
-                     <th width="200">Date</th> 
-                     <th width="300">Things done</th> 
-                   </tr> 
-                 </thead>
+         <h3> Actual access and modifications made inside the application. </h3>
+         <p> Information from the application log</p>
+         <table id="tblReportApp"> 
+           <thead> 
+             <tr> 
+               <th width="200">User</th> 
+               <th width="200">Reason</th> 
+               <th width="200">Duration</th> 
+               <th width="200">Date</th> 
+               <th width="300">Things done</th> 
+             </tr> 
+           </thead>
 
-                 <tbody> 
-                 </tbody>
-               </table>
+           <tbody> 
+           </tbody>
+         </table>
 
-         </div>
+       </div>
 
      </div>
    </div>
@@ -110,7 +110,6 @@ require 'core/init.php';
     data = JSON.parse(data);
     var options = "";
     for(var k in data) {
-     //console.log(k, data[k]);
      options += "<option token='"+data[k].token+"'>"+data[k].name+"</option>";
    }
 
@@ -125,45 +124,51 @@ require 'core/init.php';
 
 
  function getReport(){
-          var application = $("#application").find(":selected").attr("token");
-          var dateFrom    = $("#dateFrom").val();
-          var dateTo      = $("#dateTo").val();
-          var token       = $("#token").val();
-          $.post( "controls/doAction.php", { action:"getAuditReport", applicationToken: application, dateFrom: dateFrom, dateTo: dateTo, accessToken:token })
-          .done(function( data ) {
-            
-            data = JSON.parse(data);
-            var html = "";
-            
-            var report = data[0];
-            for(var k in report) {
-             var r = template;
-             r = r.replace("$usr", report[k].username);
-             r = r.replace("$rsn", report[k].reason);
-             r = r.replace("$drtn", report[k].duration);
-             r = r.replace("$date", report[k].date);
-             r = r.replace("$aprvd", report[k].approved == '0'? 'Rejected' : 'Approved');
-             html += r;
-           }
-           $("#tblReport").find('tbody').html(html);
+  var application = $("#application").find(":selected").attr("token");
+  var dateFrom    = $("#dateFrom").val();
+  var dateTo      = $("#dateTo").val();
+  var token       = $("#token").val();
+  $.post( "controls/doAction.php", { action:"getAuditReport", applicationToken: application, dateFrom: dateFrom, dateTo: dateTo, accessToken:token })
+  .done(function( data ) {
 
-           var log = data[1];
-           html = "";
-          for(var k in log) {
-             var r = template;
-             r = r.replace("$usr", log[k].username);
-             r = r.replace("$rsn", log[k].reason);
-             r = r.replace("$drtn", log[k].duration);
-             r = r.replace("$date", log[k].date);
-             r = r.replace("$aprvd", log[k].approved == '0'? 'Rejected' : 'Approved');
-             html += r;
-          }
-          $("#tblReportApp").find('tbody').html(html);
-          $("#details").slideDown();
-           
-         });
-        }
+    try{ data = JSON.parse(data);}
+    catch(e){ alert("There was an error, please try again."); return;}
+    if(data.message == 'error'){
+      alert("There was an error with the token. Plase try again.");
+    }else{
+      var html = "";
+      var report = data[0];
+      for(var k in report) {
+       var r = template;
+       r = r.replace("$usr", report[k].username);
+       r = r.replace("$rsn", report[k].reason);
+       r = r.replace("$drtn", report[k].duration);
+       r = r.replace("$date", report[k].date);
+       r = r.replace("$aprvd", report[k].approved == '0'? 'Rejected' : 'Approved');
+       html += r;
+     }
+     $("#tblReport").find('tbody').html(html);
 
-      </script>
-  </body>
-  </html>
+     var log = data[1];
+     html = "";
+     for(var k in log) {
+       var r = template;
+       r = r.replace("$usr", log[k].username);
+       r = r.replace("$rsn", log[k].reason);
+       r = r.replace("$drtn", log[k].duration);
+       r = r.replace("$date", log[k].date);
+       r = r.replace("$aprvd", log[k].approved == '0'? 'Rejected' : 'Approved');
+       html += r;
+     }
+     $("#tblReportApp").find('tbody').html(html);
+     $("#details").slideDown();
+
+   }
+
+
+ });
+}
+
+</script>
+</body>
+</html>

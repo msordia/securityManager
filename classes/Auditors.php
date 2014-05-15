@@ -43,6 +43,15 @@ class Auditors {
 		
 	}
 
+	public function isTokenValid($token) {
+		$sql = "SELECT * FROM $this->_auditorTableName accessToken = $token";
+		$db = $this->_db->query($sql);
+
+		if($db->count()) { return true;	}
+
+		return false;
+	}
+
 	public function exists() {
 		return (!empty($this->_data)) ? true : false;
 	}

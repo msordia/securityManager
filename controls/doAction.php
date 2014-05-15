@@ -31,7 +31,7 @@ if(Input::exists()) {
 				$to   = $data[0]->usermail;
 				$username = $data[0]->username;
 
-			    $mailer->sendRequestAccessAccepted ($to, $username, $token);
+			    $mailer->sendRequestAccessAccepted($to, $username, $token);
 
 			} catch(Exception $e) {
 				$response = array( "message" => "Error:003"	);
@@ -149,6 +149,12 @@ if(Input::exists()) {
 			Verificar que el token del auditor exista
 			Posibles Mejoras: Dar un frame de tiempo para que el auditor solo pueda ver el reporte durante cierto tiempo
 		*/
+			$auditor = new Auditors();
+			if($accessToken == "" || !$auditor->isTokenValid($accessToken)){
+				$response = array( "message" => "error");
+				die(json_encode($response));
+			}
+
 
 			$req = new Requests();
 			$report = $req->getRequestReport($applicationToken, $dateFrom, $dateTo);
