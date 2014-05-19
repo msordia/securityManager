@@ -73,7 +73,7 @@ class Requests {
 	}
 
 	public function getRequestReport($applicationToken, $dateFrom, $dateTo) {
-		$sql = "SELECT r.id, r.date, r.reason, r.duration, r.username, r.usermail, r.approved FROM access r where r.applicationToken = '$applicationToken' AND r.date between $dateFrom and $dateTo";
+		$sql = "SELECT r.id, r.date, r.reason, r.duration, r.username, r.usermail, r.approved FROM access r where r.applicationToken = '$applicationToken' AND r.date between '$dateFrom' and '$dateTo'";
 		$db = $this->_db->query($sql);
 
 		if($db->count()) {

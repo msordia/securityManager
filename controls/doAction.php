@@ -164,8 +164,7 @@ if(Input::exists()) {
 		*/
 
 			$app = new Application($applicationToken);
-			$url = urlencode($app->data()->url);
-			//$url = "http://localhost:8082/gestor/external/externalApi.php";
+			$url = urldecode($app->data()->url);
 			$data = array('dateFrom' => $dateFrom, 'dateTo' => $dateTo);
 
 			try {
@@ -177,7 +176,7 @@ if(Input::exists()) {
 				curl_close($ch);
 
 				$response[0] = $report;
-				$response[1] = $log;
+				$response[1] = json_decode($log);
 				echo (json_encode($response));
 
 			} catch(Exception $e) {

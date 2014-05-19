@@ -40,12 +40,12 @@ require 'core/init.php';
        <br/>
 
        Start date
-       <input id="dateFrom" type="date" placeholder="MM/DD/YYYY" value="01/01/2014"> <br/>
+       <input id="dateFrom" type="date" placeholder="YYYY/MM/DD" value="2014/01/01"> <br/>
        End date
-       <input id="dateTo" type="date" placeholder="MM/DD/YYYY" value="02/02/2014"> <br/>
+       <input id="dateTo" type="date" placeholder="YYYY/MM/DD" value="2014/06/01"> <br/>
 
        Token:
-       <input id="token" type="text" placeholder="Your access token as an auditor"> <br/>
+       <input id="token" type="text" placeholder="Your access token as an auditor" value="4e2385a2843bb682471634bcdb5108d7e064f3b8d4cd4122213cd743fcac3504"> <br/>
 
        <a href="#" onclick="getReport()" class="button">Get Report</a>
 
@@ -89,8 +89,6 @@ require 'core/init.php';
      </div>
    </div>
  </div>
-
-
 
  <script src="js/vendor/jquery.js"></script>
  <script src="js/foundation.min.js"></script>
@@ -157,7 +155,7 @@ require 'core/init.php';
        r = r.replace("$rsn", log[k].reason);
        r = r.replace("$drtn", log[k].duration);
        r = r.replace("$date", log[k].date);
-       r = r.replace("$aprvd", log[k].approved == '0'? 'Rejected' : 'Approved');
+       r = r.replace("$aprvd", log[k].changes);
        html += r;
      }
      $("#tblReportApp").find('tbody').html(html);
