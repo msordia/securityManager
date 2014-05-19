@@ -24,8 +24,6 @@
 	        Dr. Juan Arturo Nolazco Flores <jnolazco@itesm.mx>
 	
 	
-		Ing. Maria Isabel Cabrera Cancino <marisa.cabrera@tecvirtual.mx>
-	
 	
 	   ITESM students
 		Jose Leal 
